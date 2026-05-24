@@ -72,7 +72,8 @@ interface AssignmentStore {
   updateAssignmentStatus: (id: string, status: IAssignment['status'], data?: any) => void;
 }
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const rawUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const BACKEND_URL = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
 const API_BASE = `${BACKEND_URL}/api/assignments`;
 
 export const useAssignmentStore = create<AssignmentStore>((set, get) => ({

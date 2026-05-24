@@ -137,13 +137,9 @@ export default function QuestionPaperView() {
     );
   }
 
-  const handleDownload = () => {
-    if (pdfPath) {
-      const rawUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-      const backendUrl = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
-      window.open(`${backendUrl}${pdfPath}`, '_blank');
-    }
-  };
+  const rawUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  const backendUrl = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
+  const pdfUrl = pdfPath ? `${backendUrl}${pdfPath}` : '';
 
   const handlePrint = () => {
     window.print();
@@ -177,10 +173,23 @@ export default function QuestionPaperView() {
             <span>Regenerate</span>
           </button>
 
-          <button className="btn-download-pdf" onClick={handleDownload} disabled={!pdfPath}>
-            <Download size={15} />
-            <span>Download as PDF</span>
-          </button>
+          {pdfPath ? (
+            <a
+              href={pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-download-pdf"
+              style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+            >
+              <Download size={15} />
+              <span>Download as PDF</span>
+            </a>
+          ) : (
+            <button className="btn-download-pdf" disabled>
+              <Download size={15} />
+              <span>Download as PDF</span>
+            </button>
+          )}
         </div>
       </div>
 

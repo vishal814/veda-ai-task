@@ -139,7 +139,8 @@ export default function QuestionPaperView() {
 
   const handleDownload = () => {
     if (pdfPath) {
-      window.open(`http://localhost:5000${pdfPath}`, '_blank');
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      window.open(`${backendUrl}${pdfPath}`, '_blank');
     }
   };
 

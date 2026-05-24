@@ -9,7 +9,8 @@ export const useWebSocket = () => {
 
   useEffect(() => {
     // Connect to Express Socket.io server
-    const socket = io('http://localhost:5000');
+    const socketUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const socket = io(socketUrl);
     socketRef.current = socket;
 
     socket.on('connect', () => {
